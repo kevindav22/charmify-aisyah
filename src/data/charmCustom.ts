@@ -1,0 +1,88 @@
+import { Charm } from '@/types/globalTypes';
+
+export const charms: Charm[] = [
+  {
+    id: 1,
+    name: 'Butterfly',
+    image: '/images/products/charms/charm1.webp',
+    price: 49000,
+    category: 'Nature',
+  },
+  {
+    id: 2,
+    name: 'Heart',
+    image: '/images/products/charms/charm2.png',
+    price: 39000,
+    category: 'Love',
+  },
+  {
+    id: 3,
+    name: 'Moon',
+    image: '/images/products/charms/charm3.png',
+    price: 45000,
+    category: 'Celestial',
+  },
+  {
+    id: 4,
+    name: 'Flower',
+    image: '/images/products/charms/charm4.png',
+    price: 55000,
+    category: 'Nature',
+  },
+  {
+    id: 5,
+    name: 'Star',
+    image: '/images/products/charms/charm5.png',
+    price: 42000,
+    category: 'Celestial',
+  },
+  {
+    id: 6,
+    name: 'Crown',
+    image: '/images/products/charms/charm1.webp',
+    price: 59000,
+    category: 'Luxury',
+  },
+  {
+    id: 7,
+    name: 'Ribbon',
+    image: '/images/products/charms/charm2.png',
+    price: 35000,
+    category: 'Cute',
+  },
+  {
+    id: 8,
+    name: 'Diamond',
+    image: '/images/products/charms/charm3.png',
+    price: 69000,
+    category: 'Luxury',
+  },
+  {
+    id: 9,
+    name: 'Letter A',
+    image: '/images/products/charms/charm4.png',
+    price: 45000,
+    category: 'Alphabet',
+  },
+  {
+    id: 10,
+    name: 'Letter B',
+    image: '/images/products/charms/charm5.png',
+    price: 45000,
+    category: 'Alphabet',
+  },
+  {
+    id: 11,
+    name: 'Letter C',
+    image: '/images/products/charms/charm1.webp',
+    price: 45000,
+    category: 'Alphabet',
+  },
+  {
+    id: 12,
+    name: 'Letter D',
+    image: '/images/products/charms/charm2.png',
+    price: 45000,
+    category: 'Alphabet',
+  },
+];
