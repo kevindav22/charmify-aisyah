@@ -6,25 +6,25 @@ const collections = [
   {
     title: 'Bracelet',
     description: 'Koleksi gelang premium untuk melengkapi gaya harianmu.',
-    image: '/images/1.jfif',
+    image: '/images/1.png',
     href: '/products/bracelet',
   },
   {
     title: 'Watch',
     description: 'Jam tangan elegan untuk setiap momen penting.',
-    image: '/images/2.jfif',
+    image: '/images/2.png',
     href: '/products/watch',
   },
   {
     title: 'Accessories',
     description: 'Aksesori pilihan untuk menyempurnakan penampilan.',
-    image: '/images/3.jfif',
+    image: '/images/3.png',
     href: '/products/accessories',
   },
   {
     title: 'Charm Custom',
     description: 'Buat kombinasi charm sesuai cerita dan kepribadianmu.',
-    image: '/images/1.jfif',
+    image: '/images/1.png',
     href: '/customize',
   },
 ];
@@ -38,9 +38,7 @@ const CollectionSection = () => {
           <div className="max-w-2xl">
             <span className="mb-3 inline-flex rounded-full border border-rose-200 bg-white px-4 py-2 text-sm font-medium text-rose-600">Shop by Category</span>
 
-            <h2 className="mb-4 text-2xl font-black text-slate-900 md:text-3xl lg:text-4xl">
-              Jelajahi Koleksi Kami
-            </h2>
+            <h2 className="mb-4 text-2xl font-black text-slate-900 md:text-3xl lg:text-4xl">Jelajahi Koleksi Kami</h2>
 
             <p className="text-slate-600 md:text-lg">Pilih kategori produk sesuai gaya dan kebutuhanmu.</p>
           </div>
