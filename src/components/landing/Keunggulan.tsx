@@ -84,20 +84,6 @@ const WhyChooseUsSection = () => {
             })}
           </div>
         </div>
-
-        {/* CTA BOTTOM */}
-        <div className="mt-16 overflow-hidden rounded-2xl bg-gradient-to-r from-rose-500 via-pink-500 to-fuchsia-500 p-8 text-white md:p-10">
-          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <div className="max-w-xl">
-              <span className="mb-2 inline-block text-sm font-medium text-white/80">Koleksi Terbaru</span>
-              <h3 className="mb-3 text-2xl font-black md:text-3xl">Ciptakan Charm yang Mewakili Dirimu</h3>
-              <p className="text-white/90">Mix & match charm favoritmu dan buat bracelet yang benar-benar personal.</p>
-            </div>
-            <Link href="/store" className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-6 font-semibold text-rose-600 transition hover:bg-rose-50">
-              Lihat Semua Produk
-            </Link>
-          </div>
-        </div>
       </div>
     </section>
   );

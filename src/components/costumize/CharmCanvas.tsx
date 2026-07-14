@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useRef } from 'react';
-import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { DndContext, closestCenter, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, horizontalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
 import SortableCharm from './ShortTableCanvas';
 import useCharmExport from '@/hooks/useCharmExport';
@@ -31,10 +31,17 @@ const CharmCanvas = ({ charms, totalPrice, zoom, setCharms, onRemove, onClear, o
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 3,
+        distance: 8,
       },
     }),
-  );
+  useSensor(TouchSensor, {
+    activationConstraint: {
+      delay: 200,
+      tolerance: 5,
+    },
+  }),
+);
+  
 
   const summary = useMemo(() => {
     const grouped = charms.reduce(
@@ -65,7 +72,7 @@ const CharmCanvas = ({ charms, totalPrice, zoom, setCharms, onRemove, onClear, o
       <div ref={canvasRef} className="p-3 md:p-4 lg:p-5">
         <div className="flex aspect-square flex-col overflow-hidden rounded-2xl border border-dashed border-rose-900 bg-rose-50/20 md:aspect-[4/3] lg:aspect-[16/7] p-4">
           
-          <div className="flex flex-1 items-center justify-center overflow-x-auto overflow-y-hidden">
+          <div className="flex flex-1 items-center justify-center overflow-x-auto overflow-y-hidden touch-none">
             <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
               <SortableContext items={charms.map((c) => c.instanceId)} strategy={horizontalListSortingStrategy}>
                 <div

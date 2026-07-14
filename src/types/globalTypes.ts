@@ -1,6 +1,6 @@
 // types for hero
-export type HeroCarouselProps = {
-  images: string[];
+export type TypesCaraousel = {
+  img: string[];
 };
 
 // types for customize
@@ -15,3 +15,10 @@ export type Charm = {
 export type SelectedCharm = Charm & {
   instanceId: string;
 };
+
+export type TypesProfile = {
+  name: string;
+  tagline: string;
+  phone: string;
+};
+
