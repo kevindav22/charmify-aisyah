@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 import { FiShoppingBag, FiGrid, FiEye, FiRefreshCw, FiDownload, FiMessageCircle, FiImage, FiCheckCircle, FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import StepCard from '../ui/StepCard';
+// Import komponen Button buatanmu (sesuaikan path import jika folder strukturmu berbeda)
+import { Button } from '@/components/ui/Button'; 
 
 const steps = [
   {
@@ -50,73 +53,46 @@ const StepCustomSection = () => {
   const [showAllSteps, setShowAllSteps] = useState(false);
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-rose-50 via-white to-pink-50">
-
-      <div className="container mx-auto max-w-7xl px-5 py-12 md:px-8 lg:px-12">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="mb-5 inline-flex rounded-full border border-rose-200 bg-white/80 px-4 py-2 text-sm font-medium text-rose-600 backdrop-blur">Design Your Own Bracelet</span>
-          <h2 className="text-3xl font-black leading-tight text-slate-900 md:text-4xl">Langkah-langkah Desain Bracelet  </h2>
+    <section className="flex flex-col overflow-hidden bg-gradient-to-br from-rose-50 via-white to-pink-50">
+      <div className="mx-auto flex w-full max-w-7xl flex-col px-5 py-12 md:px-8 lg:px-12">
+        <div className="mx-auto flex max-w-3xl flex-col items-center gap-5 text-center">
+          <span className="inline-flex rounded-full border border-rose-200 bg-white/80 px-4 py-2 text-sm font-medium text-rose-600 backdrop-blur">Design Your Own Bracelet</span>
+          <h2 className="text-3xl font-black leading-tight text-slate-900 md:text-4xl">Langkah Mudah Susun Bracelet</h2>
         </div>
 
         {/* MOBILE */}
-        <div className="mt-14 grid grid-cols-1 gap-5 md:hidden">
-          {(showAllSteps ? steps : steps.slice(0, 3)).map((step, index) => {
-            const Icon = step.icon;
-            return (
-              <div key={step.title} className="group relative rounded-[2rem] border border-rose-100 bg-white/80 p-6 backdrop-blur-sm shadow-sm transition-all duration-300 hover:border-rose-200 hover:shadow-lg">
-                <div className="absolute right-5 top-5 text-5xl font-black text-rose-100">{String(index + 1).padStart(2, '0')}</div>
-                <div className="flex items-start gap-4">
-                  <div className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-rose-500 via-pink-500 to-fuchsia-500 text-xl text-white shadow-lg shadow-rose-200/50">
-                    <Icon />
-                  </div>
+        <div className="flex flex-col gap-4 py-8 md:hidden">
+          {(showAllSteps ? steps : steps.slice(0, 3)).map((step, index) => (
+            <StepCard key={step.title} step={step} index={index} />
+          ))}
 
-                  <div className="pr-10">
-                    <h3 className="text-lg font-bold text-slate-900">{step.title}</h3>
-
-                    <p className="mt-2 text-sm leading-relaxed text-slate-600">{step.description}</p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-
-          <button
+          {/* Menggunakan Button Custom dengan variant secondary */}
+          <Button
             onClick={() => setShowAllSteps(!showAllSteps)}
-            className="mt-2 flex items-center justify-center gap-2 rounded-2xl border border-rose-200 bg-white px-6 py-4 text-sm font-semibold text-rose-600 transition-all hover:border-rose-300 hover:bg-rose-50"
+            variant="secondary"
+            className="mt-4 w-full justify-center"
           >
             {showAllSteps ? (
               <>
                 Tampilkan Lebih Sedikit
-                <FiChevronUp />
+                <FiChevronUp className="h-4 w-4" />
               </>
             ) : (
               <>
                 Lihat Semua Langkah
-                <FiChevronDown />
+                <FiChevronDown className="h-4 w-4" />
               </>
             )}
-          </button>
+          </Button>
         </div>
 
-        {/* DESKTOP */}
-        <div className="mt-14 hidden gap-6 md:grid md:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step, index) => {
-            const Icon = step.icon;
-
-            return (
-              <div key={step.title} className="group relative rounded-[2rem] border border-rose-100 bg-white/80 p-6 backdrop-blur-sm shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-rose-200 hover:shadow-xl">
-                <div className="absolute right-5 top-5 text-5xl font-black text-rose-100 transition-colors duration-300 group-hover:text-rose-200">{String(index + 1).padStart(2, '0')}</div>
-
-                <div className="flex flex-col">
-                  <div className="mb-5 flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-rose-500 via-pink-500 to-fuchsia-500 text-xl text-white shadow-lg shadow-rose-200/50">
-                    <Icon />
-                  </div>
-                  <h3 className="pr-8 text-lg font-bold text-slate-900">{step.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-600">{step.description}</p>
-                </div>
-              </div>
-            );
-          })}
+        {/* DESKTOP & TABLET (Menggunakan Grid: default 1, md 3, lg 4) */}
+        <div className="hidden grid-cols-1 gap-6 py-14 md:grid md:grid-cols-3 lg:grid-cols-4">
+          {steps.map((step, index) => (
+            <div key={step.title} className="flex h-full">
+              <StepCard step={step} index={index} />
+            </div>
+          ))}
         </div>
       </div>
     </section>

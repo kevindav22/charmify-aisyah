@@ -39,9 +39,9 @@ const SortableCharm = ({ charm, onRemove }: Props) => {
 
       <div
         {...listeners}
-        className="relative size-8 md:size-12 lg:size-16 cursor-grab active:cursor-grabbing touch-none"
+        className="relative size-12 md:size-16 lg:size-20 cursor-grab active:cursor-grabbing touch-none"
       >
-        <SafeImage useNativeImg src={charm.image} alt={charm.name} fill className="object-contain scale-130 pointer-events-none" />
+        <SafeImage useNativeImg src={charm.image} alt={charm.name} fill className="object-contain scale-100 pointer-events-none" />
       </div>
     </div>
   );

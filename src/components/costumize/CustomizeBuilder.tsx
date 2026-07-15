@@ -4,12 +4,17 @@ import { useMemo, useState } from 'react';
 import CharmCanvas from './CharmCanvas';
 import CharmPicker from './CharmPicker';
 import OrderAction from './OrderActions';
-import { charms } from '@/data/charmCustom';
+// Import fungsi generator dari file utilitas yang baru kita buat
+import { generateCharms } from '../ui/GenerateCharm';
 import type { Charm, SelectedCharm } from '@/types/globalTypes';
 
 const CustomizeBuilder = () => {
   const [zoom, setZoom] = useState(1);
   const [selectedCharms, setSelectedCharms] = useState<SelectedCharm[]>([]);
+
+  // Generate data charms otomatis dari file gambar menggunakan useMemo
+  const charms = useMemo(() => generateCharms(), []);
+
   const addCharm = (charm: Charm) => {
     setSelectedCharms((prev) => [
       ...prev,
@@ -33,7 +38,7 @@ const CustomizeBuilder = () => {
   }, [selectedCharms]);
 
   return (
-    <section className="bg-white">
+    <section className="bg-gradient-to-b from-white to-rose-50 via-rose-100">
       <div className="container mx-auto flex max-w-7xl flex-col gap-5 px-5 py-8 md:px-8 lg:px-12">
         <CharmCanvas
           charms={selectedCharms}

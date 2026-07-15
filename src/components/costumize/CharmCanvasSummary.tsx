@@ -12,7 +12,7 @@ const CharmCanvasSummary = ({ charms, totalPrice }: Props) => {
   return (
     <div className="flex flex-col gap-4 border-t border-rose-100 pt-2">
       {charms.length === 0 ? (
-        <p className="text-base text-slate-400 md:text-lg">Belum ada charm dipilih</p>
+        <p className="text-base text-slate-400 md:text-lg">-</p>
       ) : (
         <div className="flex flex-wrap gap-0.5">
           {charms.map((charm) => (

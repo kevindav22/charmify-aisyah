@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { HiBars3, HiSparkles, HiXMark } from 'react-icons/hi2';
 import { Button, WhatsAppButton } from '../ui/Button';
-import { Profile } from '@/data/statisData';
+import { profilData } from '@/data/statisData';
 
 const navItems = [
   {
@@ -47,8 +47,8 @@ const Header = () => {
             </div>
 
             <div>
-              <p className="text-xl font-extrabold text-slate-900">{Profile?.name}</p>
-              <p className="-mt-1 text-sm text-rose-500">{Profile?.tagline}</p>
+              <p className="text-xl font-extrabold text-slate-900">{profilData?.name}</p>
+              <p className="-mt-1 text-sm text-rose-500">{profilData?.tagline}</p>
             </div>
           </Link>
 
@@ -61,7 +61,7 @@ const Header = () => {
           </nav>
 
           <div className="hidden items-center gap-3 md:flex">
-            <WhatsAppButton phone={Profile.phone} message="Halo, saya mau tanya produk" />
+            <WhatsAppButton phone={profilData.phone} message="Halo, saya mau tanya produk" />
             <Button href="/customize" variant="primary" className="px-5 py-2.5 text-sm">
               Desain Sendiri
             </Button>

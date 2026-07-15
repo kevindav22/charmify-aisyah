@@ -5,7 +5,7 @@ import type { ReactNode, ButtonHTMLAttributes, AnchorHTMLAttributes } from 'reac
 import { FaWhatsapp } from 'react-icons/fa6';
 import { formatWhatsAppLink } from '@/lib/utils';
 
-type Variant = 'primary' | 'secondary' | 'plain';
+type Variant = 'primary' | 'secondary' | 'plain' | 'outline';
 
 const base = 'inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 font-semibold transition-all duration-300';
 
@@ -13,6 +13,7 @@ const variants: Record<Variant, string> = {
   primary: 'bg-gradient-to-r from-rose-500 via-pink-500 to-fuchsia-500 text-white shadow-lg shadow-rose-200 hover:-translate-y-0.5',
   secondary: 'border border-rose-200 bg-white/80 text-slate-700 backdrop-blur hover:border-rose-300 hover:bg-white',
   plain: 'bg-white text-rose-600 hover:-translate-y-0.5',
+  outline: 'border border-2 border-rose-900 bg-transparent text-rose-500 hover:-translate-y-0.5 hover:bg-rose-50',
 };
 
 interface ButtonProps {

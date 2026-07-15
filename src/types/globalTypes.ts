@@ -4,21 +4,23 @@ export type TypesCaraousel = {
 };
 
 // types for customize
-export type Charm = {
+export interface Charm {
   id: number;
   name: string;
-  image: string;
   price: number;
-  category: string;
-};
+  image: string;
+  category: 'luma-pink' | 'luma-calm' | 'luma-zodiac';
+}
 
 export type SelectedCharm = Charm & {
   instanceId: string;
 };
 
+//types profilData
 export type TypesProfile = {
   name: string;
   tagline: string;
   phone: string;
+  pesanUmum: string;
 };
 

@@ -21,10 +21,6 @@ type Props = {
   onResetZoom: () => void;
 };
 
-/* ================= SORTABLE ITEM ================= */
-
-/* ================= MAIN ================= */
-
 const CharmCanvas = ({ charms, totalPrice, zoom, setCharms, onRemove, onClear, onZoomIn, onZoomOut, onResetZoom }: Props) => {
   const canvasRef = useRef<HTMLDivElement>(null);
   const { handleDownload } = useCharmExport(canvasRef);

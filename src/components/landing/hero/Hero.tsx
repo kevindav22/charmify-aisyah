@@ -1,9 +1,10 @@
 import { FiArrowRight } from 'react-icons/fi';
-import { CarouselImg } from '@/data/statisData';
+import { carouselImg, profilData } from '@/data/statisData';
 import HeroCarousel from './HeroCarousel';
 import { Button, WhatsAppButton } from '@/components/ui/Button';
 
 const HeroSection = () => {
+  const pesanText = 'Halo kak izin bertanya tanya terkait Vluffy'
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden bg-gradient-to-br from-rose-50 via-pink-300 to-fuchsia-50 pb-16 pt-24">
       <div className="absolute -left-24 top-0 size-72 rounded-full bg-rose-200/20 blur-3xl" />
@@ -16,20 +17,19 @@ const HeroSection = () => {
               Setiap Charm Menyimpan Cerita, Setiap Gelang Adalah Kenangan
             </h1>
 
-            <p className="max-w-xl text-base leading-relaxed text-slate-600 md:text-lg">
+            <p className="max-w-xl text-justify text-base leading-relaxed text-slate-600 md:text-lg">
               Hadirkan sentuhan personal dalam setiap penampilanmu dengan koleksi charm bracelet yang elegan, manis, dan penuh makna. Dirancang untuk menemani momen spesial yang ingin selalu kamu kenang.
             </p>
 
-            <div className="flex flex-wrap gap-4">
-              <Button href="/produk" className="group">
-                Temukan Koleksi 
-                <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <Button href="/produk" className="group w-full sm:w-auto">
+              Temukan Koleksi
+              <FiArrowRight className="transition-transform group-hover:translate-x-1" />
               </Button>
-              <WhatsAppButton phone="6281234567890" message="Halo, saya mau tanya produk" />
+              <WhatsAppButton phone={profilData.phone} message={pesanText} className="w-full sm:w-auto"/>
             </div>
           </div>
-
-          <HeroCarousel images={CarouselImg.img} />
+          <HeroCarousel images={carouselImg.img} />
         </div>
       </div>
     </section>
