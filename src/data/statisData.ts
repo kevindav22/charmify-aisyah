@@ -13,8 +13,8 @@ export const carouselImg: TypesCaraousel = {
 
 export const profilData: TypesProfile = {
   name: 'Vluffy',
-  tagline: 'Personalized Bracelet',
-  phone: '6281234567890',
-  pesanUmum: 'Halo, saya mau tanya produk',
+  tagline: 'Handmade Accessories',
+  phone: '6285786518023',
+  pesanUmum: 'Halo kak, saya ingin bertanya tanya terkait pembelian produk apakah bisa?, saya sangat tertarik dengan produk yang dimiliki Vluffy Accessories',
 };
 

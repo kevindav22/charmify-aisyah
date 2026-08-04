@@ -12,7 +12,7 @@ type Props = {
   onSelect: (charm: Charm) => void;
 };
 
-type CategoryType = 'luma-pink' | 'luma-calm' | 'luma-zodiac';
+type CategoryType = 'luma-pink' | 'luma-calm' | 'luma-zodiac' | 'luma-3d';
 
 const CharmPicker = ({ charms, onSelect }: Props) => {
   const [search, setSearch] = useState('');
@@ -21,9 +21,10 @@ const CharmPicker = ({ charms, onSelect }: Props) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const categories: { value: CategoryType; label: string }[] = [
-    { value: 'luma-pink', label: 'Luma Pink' },
-    { value: 'luma-calm', label: 'Luma Calm' },
-    { value: 'luma-zodiac', label: 'Luma Zodiac' },
+    { value: "luma-pink", label: "Luma Pink" },
+    { value: "luma-calm", label: "Luma Calm" },
+    { value: "luma-zodiac", label: "Luma Zodiac" },
+    { value: "luma-3d", label: "Luma 3D" },
   ];
 
   const currentLabel = categories.find((c) => c.value === category)?.label || 'Luma Pink';
@@ -107,7 +108,7 @@ const CharmPicker = ({ charms, onSelect }: Props) => {
 
       <div className="max-h-50 overflow-y-auto p-2 md:max-h-70 lg:max-h-80">
         {filteredCharms.length > 0 ? (
-          <div className="grid grid-cols-6 gap-0.5 md:grid-cols-8 lg:grid-cols-10">
+          <div className="grid grid-cols-6 gap-0.5 md:grid-cols-10 lg:grid-cols-12">
             {filteredCharms.map((charm) => (
               <button 
                 key={charm.id} 

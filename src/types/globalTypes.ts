@@ -9,11 +9,16 @@ export interface Charm {
   name: string;
   price: number;
   image: string;
-  category: 'luma-pink' | 'luma-calm' | 'luma-zodiac';
+  category: "luma-pink" | "luma-calm" | "luma-zodiac" | "luma-3d";
 }
 
 export type SelectedCharm = Charm & {
   instanceId: string;
+  x: number;
+  y: number;
+  scale: number;
+  rotate: number; // derajat, default 0
+  zIndex: number;
 };
 
 //types profilData
@@ -23,4 +28,3 @@ export type TypesProfile = {
   phone: string;
   pesanUmum: string;
 };
-

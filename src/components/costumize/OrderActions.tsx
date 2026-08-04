@@ -32,7 +32,7 @@ const OrderAction = ({ charms, totalPrice }: Props) => {
     ${formatRupiah(totalPrice)}
     Hasil desain .jpg telah saya lampirkan berikut.
     Terima kasih`.trim();
-    window.open(formatWhatsAppLink(profilData.phone, message), '_blank');
+    window.open(formatWhatsAppLink(profilData.phone, message));
   };
 
   return (

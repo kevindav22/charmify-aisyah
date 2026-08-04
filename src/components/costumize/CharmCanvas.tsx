@@ -1,95 +1,180 @@
-'use client';
+"use client";
 
-import { useMemo, useRef } from 'react';
-import { DndContext, closestCenter, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { SortableContext, horizontalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
-import SortableCharm from './ShortTableCanvas';
-import useCharmExport from '@/hooks/useCharmExport';
-import CharmCanvasSummary from './CharmCanvasSummary';
-import CharmCanvasToolbar from './ToolbarCanvas';
-import type { SelectedCharm } from '@/types/globalTypes';
+import { useEffect, useRef, useState } from "react";
+import Moveable from "react-moveable";
+import FreeCharm from "./FreeCharm";
+import useCharmExport from "@/hooks/useCharmExport";
+import CharmCanvasSummary from "./CharmCanvasSummary";
+import CharmCanvasToolbar from "./ToolbarCanvas";
+import type { SelectedCharm } from "@/types/globalTypes";
 
 type Props = {
   charms: SelectedCharm[];
   totalPrice: number;
   zoom: number;
-  setCharms: (val: SelectedCharm[]) => void;
   onRemove: (id: string) => void;
   onClear: () => void;
+  onTransform: (
+    instanceId: string,
+    patch: Partial<
+      Pick<SelectedCharm, "x" | "y" | "scale" | "rotate" | "zIndex">
+    >,
+  ) => void;
   onZoomIn: () => void;
   onZoomOut: () => void;
   onResetZoom: () => void;
 };
 
-const CharmCanvas = ({ charms, totalPrice, zoom, setCharms, onRemove, onClear, onZoomIn, onZoomOut, onResetZoom }: Props) => {
+const CharmCanvas = ({
+  charms,
+  totalPrice,
+  zoom,
+  onRemove,
+  onClear,
+  onTransform,
+  onZoomIn,
+  onZoomOut,
+  onResetZoom,
+}: Props) => {
   const canvasRef = useRef<HTMLDivElement>(null);
   const { handleDownload } = useCharmExport(canvasRef);
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 8,
-      },
-    }),
-  useSensor(TouchSensor, {
-    activationConstraint: {
-      delay: 200,
-      tolerance: 5,
-    },
-  }),
-);
-  
 
-  const summary = useMemo(() => {
-    const grouped = charms.reduce(
-      (acc, item) => {
-        acc[item.name] = (acc[item.name] || 0) + 1;
-        return acc;
-      },
-      {} as Record<string, number>,
-    );
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const charmRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-    return Object.entries(grouped);
-  }, [charms]);
+  const [baseHeight, setBaseHeight] = useState(44);
 
-  const handleDragEnd = (event: any) => {
-    const { active, over } = event;
-    if (!over || active.id === over.id) return;
-    const oldIndex = charms.findIndex((i) => i.instanceId === active.id);
-    const newIndex = charms.findIndex((i) => i.instanceId === over.id);
-    setCharms(arrayMove(charms, oldIndex, newIndex));
+  useEffect(() => {
+    const updateSize = () => {
+      if (window.innerWidth < 768) {
+        setBaseHeight(24);
+      } else {
+        setBaseHeight(26);
+      }
+    };
+
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
+  const selectedCharm = charms.find((c) => c.instanceId === selectedId) || null;
+  const selectedTarget = selectedId ? charmRefs.current[selectedId] : null;
+
+  const handleRemoveSelected = () => {
+    if (selectedId) {
+      onRemove(selectedId);
+      setSelectedId(null);
+    }
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.key === "Delete" || e.key === "Backspace") && selectedId) {
+        if (
+          document.activeElement?.tagName === "INPUT" ||
+          document.activeElement?.tagName === "TEXTAREA"
+        ) {
+          return;
+        }
+        handleRemoveSelected();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedId]);
 
   return (
     <div className="overflow-hidden rounded-xl border border-rose-100 bg-white">
-      {/* TOOLBAR */}
-      <CharmCanvasToolbar zoom={zoom} onZoomIn={onZoomIn} onZoomOut={onZoomOut} onResetZoom={onResetZoom} onClear={onClear} onDownload={handleDownload} />
+      <CharmCanvasToolbar
+        zoom={zoom}
+        hasSelected={!!selectedId}
+        onZoomIn={onZoomIn}
+        onZoomOut={onZoomOut}
+        onResetZoom={onResetZoom}
+        onClear={onClear}
+        onDownload={handleDownload}
+        onRemoveSelected={handleRemoveSelected}
+      />
 
-      {/* CANVAS */}
       <div ref={canvasRef} className="p-3 md:p-4 lg:p-5">
-        <div className="flex aspect-square flex-col overflow-hidden rounded-2xl border border-dashed border-rose-900 bg-rose-50/20 md:aspect-[4/3] lg:aspect-[16/7] p-4">
-          
-          <div className="flex flex-1 items-center justify-center overflow-x-auto overflow-y-hidden touch-none">
-            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-              <SortableContext items={charms.map((c) => c.instanceId)} strategy={horizontalListSortingStrategy}>
-                <div
-                  className="flex items-center justify-center"
-                  style={{
-                    transform: `scale(${zoom})`,
-                    transformOrigin: 'center center',
-                  }}
-                >
-                  {charms.length === 0 ? (
-                    <div className="text-sm text-slate-400">Belum ada charm</div>
-                  ) : (
-                    <div className="inline-flex items-center ">
-                      {charms.map((charm) => (
-                        <SortableCharm key={charm.instanceId} charm={charm} onRemove={onRemove} />
-                      ))}
-                    </div>
-                  )}
+        <div className="flex aspect-[4/3] flex-col overflow-hidden rounded-2xl border border-dashed border-rose-900 bg-rose-50/20 md:aspect-[4/3] lg:aspect-[16/7] p-3 md:p-4">
+          <div className="relative flex-1 overflow-hidden touch-none">
+            <div
+              className="relative size-full"
+              style={{
+                transform: `scale(${zoom})`,
+                transformOrigin: "center center",
+              }}
+              onPointerDown={(e) => {
+                if (e.target === e.currentTarget) setSelectedId(null);
+              }}
+            >
+              <div
+                data-download-ignore
+                className="pointer-events-none absolute left-0 right-0 top-1/2 z-0 -translate-y-1/2 flex flex-col justify-between transition-all duration-200"
+                style={{ height: `${baseHeight}px` }}
+              >
+                <div className="w-full border-t border-dashed border-rose-300/70" />
+                <div className="w-full border-b border-dashed border-rose-300/70" />
+              </div>
+
+              {charms.length === 0 ? (
+                <div className="flex size-full items-center justify-center text-sm text-slate-400">
+                  Belum ada charm
                 </div>
-              </SortableContext>
-            </DndContext>
+              ) : (
+                charms.map((charm) => (
+                  <FreeCharm
+                    key={charm.instanceId}
+                    charm={charm}
+                    setRef={(el) => (charmRefs.current[charm.instanceId] = el)}
+                    onSelect={() => setSelectedId(charm.instanceId)}
+                  />
+                ))
+              )}
+
+              {selectedCharm && selectedTarget && (
+                <Moveable
+                  target={selectedTarget}
+                  draggable
+                  resizable
+                  renderDirections={["nw", "ne", "sw", "se"]}
+                  throttleDrag={0}
+                  throttleResize={0}
+                  keepRatio
+                  origin={false}
+                  edge={false}
+                  onDrag={({ target, left, top }) => {
+                    target.style.left = `${left}px`;
+                    target.style.top = `${top}px`;
+                  }}
+                  onDragEnd={({ target }) => {
+                    const left = parseFloat(target.style.left) || 0;
+                    const top = parseFloat(target.style.top) || 0;
+                    onTransform(selectedCharm.instanceId, { x: left, y: top });
+                  }}
+                  onResize={({ target, width, height, drag }) => {
+                    target.style.width = `${width}px`;
+                    target.style.height = `${height}px`;
+                    target.style.left = `${drag.left}px`;
+                    target.style.top = `${drag.top}px`;
+                  }}
+                  onResizeEnd={({ target }) => {
+                    const height =
+                      parseFloat(target.style.height) || baseHeight;
+                    const left = parseFloat(target.style.left) || 0;
+                    const top = parseFloat(target.style.top) || 0;
+                    onTransform(selectedCharm.instanceId, {
+                      scale: height / baseHeight,
+                      x: left,
+                      y: top,
+                    });
+                  }}
+                />
+              )}
+            </div>
           </div>
 
           <CharmCanvasSummary charms={charms} totalPrice={totalPrice} />

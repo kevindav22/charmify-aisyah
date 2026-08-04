@@ -39,7 +39,7 @@ const useCharmExport = (canvasRef: RefObject<HTMLDivElement | null>) => {
 
       const link = document.createElement('a');
 
-      link.download = `charm-design-${Date.now()}.png`;
+      link.download = `charm-design-vluffy-${Date.now()}.png`;
       link.href = dataUrl;
 
       document.body.appendChild(link);
