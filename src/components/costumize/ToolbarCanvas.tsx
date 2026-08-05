@@ -31,11 +31,11 @@ const CharmCanvasToolbar = ({
   onRemoveSelected,
 }: Props) => {
   return (
-    <div className="flex items-center justify-between gap-3 border-b border-rose-200 bg-rose-100 p-3 md:p-4">
-      <div className="flex items-center overflow-hidden rounded-2xl border border-rose-300 bg-white shadow-sm">
+    <div className="flex items-center justify-between gap-2 border-b border-rose-200 bg-rose-100 p-3 md:p-4">
+      <div className="flex items-center overflow-hidden rounded-xl border border-rose-300 bg-white shadow-sm">
         <button
           onClick={onZoomOut}
-          className="flex size-10 items-center justify-center text-slate-600 transition hover:bg-rose-50 hover:text-rose-500"
+          className="flex size-8 items-center justify-center text-slate-600 transition hover:bg-rose-50 hover:text-rose-500"
         >
           <FiMinus />
         </button>
@@ -46,7 +46,7 @@ const CharmCanvasToolbar = ({
 
         <button
           onClick={onZoomIn}
-          className="flex size-10 items-center justify-center text-slate-600 transition hover:bg-rose-50 hover:text-rose-500"
+          className="flex size-8 items-center justify-center text-slate-600 transition hover:bg-rose-50 hover:text-rose-500"
         >
           <FiPlus />
         </button>
@@ -57,7 +57,7 @@ const CharmCanvasToolbar = ({
         {hasSelected && (
           <button
             onClick={onRemoveSelected}
-            className="flex size-10 items-center justify-center rounded-xl border border-rose-300 bg-rose-50 text-rose-600 transition hover:bg-rose-200 md:size-auto md:gap-2 md:px-4 md:py-2"
+            className="flex size-8 items-center justify-center rounded-xl border border-rose-300 bg-rose-50 text-rose-600 transition hover:bg-rose-200 md:size-auto md:gap-2 md:px-4 md:py-2"
             title="Hapus Charm Terpilih"
           >
             <FiXCircle />
@@ -67,7 +67,7 @@ const CharmCanvasToolbar = ({
 
         <button
           onClick={onResetZoom}
-          className="flex size-10 items-center justify-center rounded-xl border border-rose-300 bg-white text-slate-600 transition hover:border-rose-400 hover:text-rose-500 md:size-auto md:gap-2 md:px-4 md:py-2"
+          className="flex size-8 items-center justify-center rounded-xl border border-rose-300 bg-white text-slate-600 transition hover:border-rose-400 hover:text-rose-500 md:size-auto md:gap-2 md:px-4 md:py-2"
         >
           <FiRotateCcw />
           <span className="hidden md:block">Reset</span>
@@ -75,7 +75,7 @@ const CharmCanvasToolbar = ({
 
         <button
           onClick={onClear}
-          className="flex size-10 items-center justify-center rounded-xl border border-red-200 bg-white text-red-500 transition hover:bg-slate-50 md:size-auto md:gap-2 md:px-4 md:py-2"
+          className="flex size-8 items-center justify-center rounded-xl border border-red-200 bg-white text-red-500 transition hover:bg-slate-50 md:size-auto md:gap-2 md:px-4 md:py-2"
         >
           <FiTrash2 />
           <span className="hidden md:block">Clear All</span>
@@ -83,7 +83,7 @@ const CharmCanvasToolbar = ({
 
         <button
           onClick={onDownload}
-          className="flex size-10 items-center justify-center rounded-xl bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-sm transition hover:opacity-90 md:size-auto md:gap-2 md:px-4 md:py-2"
+          className="flex size-8 items-center justify-center rounded-xl bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-sm transition hover:opacity-90 md:size-auto md:gap-2 md:px-4 md:py-2"
         >
           <FiDownload />
           <span className="hidden md:block">Download</span>

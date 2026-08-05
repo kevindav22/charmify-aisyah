@@ -102,7 +102,7 @@ const CharmCanvas = ({
         onRemoveSelected={handleRemoveSelected}
       />
 
-      <div ref={canvasRef} className="p-3 md:p-4 lg:p-5">
+      <div ref={canvasRef} className="p-1 md:p-1 lg:p-2">
         <div className="flex aspect-[4/3] flex-col overflow-hidden rounded-2xl border border-dashed border-rose-900 bg-rose-50/20 md:aspect-[4/3] lg:aspect-[16/7] p-3 md:p-4">
           <div className="relative flex-1 overflow-hidden touch-none">
             <div
