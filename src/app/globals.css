@@ -33,23 +33,4 @@ a {
   font-family: var(--font-body);
 }
 
-.moveable-control-box {
-  --moveable-color: #f43f5e !important;
-}
-
-.moveable-line {
-  height: 1.8px !important;
-  background: #f43f5e !important;
-}
-
-/* Memperkecil titik-titik kontrol di sudut */
-.moveable-control {
-  width: 10px !important;
-  height: 10px !important;
-  margin-left: -5px !important;
-  margin-top: -5px !important;
-  border: 1.5px solid #ffffff !important;
-  background: #f43f5e !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
 

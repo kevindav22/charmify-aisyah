@@ -41,6 +41,7 @@ const CharmCanvas = ({
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const charmRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const moveHandleRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const [baseHeight, setBaseHeight] = useState(44);
 
@@ -60,6 +61,9 @@ const CharmCanvas = ({
 
   const selectedCharm = charms.find((c) => c.instanceId === selectedId) || null;
   const selectedTarget = selectedId ? charmRefs.current[selectedId] : null;
+  const selectedMoveHandle = selectedId
+    ? moveHandleRefs.current[selectedId]
+    : null;
 
   const handleRemoveSelected = () => {
     if (selectedId) {
@@ -129,7 +133,11 @@ const CharmCanvas = ({
                   <FreeCharm
                     key={charm.instanceId}
                     charm={charm}
+                    isSelected={charm.instanceId === selectedId}
                     setRef={(el) => (charmRefs.current[charm.instanceId] = el)}
+                    setMoveHandleRef={(el) =>
+                      (moveHandleRefs.current[charm.instanceId] = el)
+                    }
                     onSelect={() => setSelectedId(charm.instanceId)}
                   />
                 ))
@@ -138,6 +146,7 @@ const CharmCanvas = ({
               {selectedCharm && selectedTarget && (
                 <Moveable
                   target={selectedTarget}
+                  dragTarget={selectedMoveHandle ?? undefined}
                   draggable
                   resizable
                   renderDirections={["nw", "ne", "sw", "se"]}

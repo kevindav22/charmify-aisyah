@@ -6,11 +6,19 @@ import type { SelectedCharm } from "@/types/globalTypes";
 
 type Props = {
   charm: SelectedCharm;
+  isSelected: boolean;
   setRef: (el: HTMLDivElement | null) => void;
+  setMoveHandleRef: (el: HTMLDivElement | null) => void;
   onSelect: () => void;
 };
 
-const FreeCharm = ({ charm, setRef, onSelect }: Props) => {
+const FreeCharm = ({
+  charm,
+  isSelected,
+  setRef,
+  setMoveHandleRef,
+  onSelect,
+}: Props) => {
   const [baseSize, setBaseSize] = useState({ height: 44, width: 50 });
 
   useEffect(() => {
@@ -37,8 +45,8 @@ const FreeCharm = ({ charm, setRef, onSelect }: Props) => {
       style={{
         left: charm.x,
         top: charm.y,
-        width: width,
-        height: height,
+        width,
+        height,
         zIndex: charm.zIndex,
       }}
       onPointerDown={(e) => {
@@ -55,6 +63,23 @@ const FreeCharm = ({ charm, setRef, onSelect }: Props) => {
           className="object-fill"
         />
       </div>
+
+      {isSelected && (
+        <div
+          className="pointer-events-none absolute left-1/2 top-full flex -translate-x-1/2 flex-col items-center"
+          style={{ height: 28 }}
+        >
+          <div className="h-4 w-px bg-rose-300" />
+          <div
+            ref={setMoveHandleRef}
+            onPointerDown={(e) => e.stopPropagation()}
+            className="pointer-events-auto flex size-7 touch-none items-center justify-center rounded-full border border-rose-300 bg-white shadow-sm active:scale-95"
+            style={{ cursor: "grab" }}
+          >
+            <div className="size-2.5 rounded-full bg-rose-400" />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
