@@ -53,7 +53,6 @@ const CharmCanvasToolbar = ({
       </div>
 
       <div className="flex items-center gap-2">
-        {/* Tombol Hapus Charm Terpilih */}
         {hasSelected && (
           <button
             onClick={onRemoveSelected}

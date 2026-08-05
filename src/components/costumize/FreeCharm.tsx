@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import SafeImage from "@/components/ui/SafeImage";
+import { useBaseCharmSize } from "@/hooks/useBaseCharmSize";
 import type { SelectedCharm } from "@/types/globalTypes";
 
 type Props = {
@@ -19,21 +19,7 @@ const FreeCharm = ({
   setMoveHandleRef,
   onSelect,
 }: Props) => {
-  const [baseSize, setBaseSize] = useState({ height: 44, width: 50 });
-
-  useEffect(() => {
-    const updateSize = () => {
-      if (window.innerWidth < 768) {
-        setBaseSize({ height: 24, width: 26 });
-      } else {
-        setBaseSize({ height: 48, width: 58 });
-      }
-    };
-
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  }, []);
+  const baseSize = useBaseCharmSize();
 
   const height = baseSize.height * charm.scale;
   const width = baseSize.width * charm.scale;
@@ -72,7 +58,6 @@ const FreeCharm = ({
           <div className="h-4 w-px bg-rose-300" />
           <div
             ref={setMoveHandleRef}
-            onPointerDown={(e) => e.stopPropagation()}
             className="pointer-events-auto flex size-7 touch-none items-center justify-center rounded-full border border-rose-300 bg-white shadow-sm active:scale-95"
             style={{ cursor: "grab" }}
           >

@@ -7,6 +7,7 @@ import useCharmExport from "@/hooks/useCharmExport";
 import CharmCanvasSummary from "./CharmCanvasSummary";
 import CharmCanvasToolbar from "./ToolbarCanvas";
 import type { SelectedCharm } from "@/types/globalTypes";
+import { useBaseCharmSize } from "@/hooks/useBaseCharmSize";
 
 type Props = {
   charms: SelectedCharm[];
@@ -43,27 +44,10 @@ const CharmCanvas = ({
   const charmRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const moveHandleRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  const [baseHeight, setBaseHeight] = useState(44);
-
-  useEffect(() => {
-    const updateSize = () => {
-      if (window.innerWidth < 768) {
-        setBaseHeight(24);
-      } else {
-        setBaseHeight(26);
-      }
-    };
-
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  }, []);
+  const baseSize = useBaseCharmSize();
 
   const selectedCharm = charms.find((c) => c.instanceId === selectedId) || null;
   const selectedTarget = selectedId ? charmRefs.current[selectedId] : null;
-  const selectedMoveHandle = selectedId
-    ? moveHandleRefs.current[selectedId]
-    : null;
 
   const handleRemoveSelected = () => {
     if (selectedId) {
@@ -118,7 +102,7 @@ const CharmCanvas = ({
               <div
                 data-download-ignore
                 className="pointer-events-none absolute left-0 right-0 top-1/2 z-0 -translate-y-1/2 flex flex-col justify-between transition-all duration-200"
-                style={{ height: `${baseHeight}px` }}
+                style={{ height: `${baseSize.height}px` }}
               >
                 <div className="w-full border-t border-dashed border-rose-300/70" />
                 <div className="w-full border-b border-dashed border-rose-300/70" />
@@ -146,7 +130,7 @@ const CharmCanvas = ({
               {selectedCharm && selectedTarget && (
                 <Moveable
                   target={selectedTarget}
-                  dragTarget={selectedMoveHandle ?? undefined}
+                  zoom={1 / zoom}
                   draggable
                   resizable
                   renderDirections={["nw", "ne", "sw", "se"]}
@@ -172,11 +156,11 @@ const CharmCanvas = ({
                   }}
                   onResizeEnd={({ target }) => {
                     const height =
-                      parseFloat(target.style.height) || baseHeight;
+                      parseFloat(target.style.height) || baseSize.height;
                     const left = parseFloat(target.style.left) || 0;
                     const top = parseFloat(target.style.top) || 0;
                     onTransform(selectedCharm.instanceId, {
-                      scale: height / baseHeight,
+                      scale: height / baseSize.height,
                       x: left,
                       y: top,
                     });
